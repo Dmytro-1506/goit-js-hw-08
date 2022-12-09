@@ -39,8 +39,8 @@ inputTextarea.addEventListener('input', throttle((e) => {
 submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
 
-    console.log(savedForm.email);
-    console.log(savedForm.message);
+    console.log(formData.email);
+    console.log(formData.message);
 
     dataForm.reset();
 
