@@ -5,26 +5,14 @@ const inputTextarea = document.querySelector('textarea');
 const submitBtn = document.querySelector('button');
 const dataForm = document.querySelector('form');
 
-const formData = {};
+let formData = {};
 const STORAGE_KEY = "feedback-form-state";
 
-let savedForm = {};
 if (localStorage.getItem(STORAGE_KEY)) {
-    savedForm = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    formData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    inputEmail.value = formData.email;
+    inputTextarea.value = formData.message;
 };
-
-const feelInputs = (object) => {
-    if (object.email) {
-        inputEmail.value = object.email;
-    };
-
-    if (object.message) {
-        inputTextarea.value = object.message;
-    };
-    return
-};
-
-feelInputs(savedForm);
 
 inputEmail.addEventListener('input', throttle((e) => {
     formData.email = e.target.value;
