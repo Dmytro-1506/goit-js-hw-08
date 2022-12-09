@@ -8,16 +8,20 @@ const dataForm = document.querySelector('form');
 const formData = {};
 const STORAGE_KEY = "feedback-form-state";
 
-let savedForm = JSON.parse(localStorage.getItem(STORAGE_KEY));
+let savedForm = {};
+if (localStorage.getItem(STORAGE_KEY)) {
+    savedForm = JSON.parse(localStorage.getItem(STORAGE_KEY));
+};
 
-const feelInputs = (savedForm) => {
-    if (savedForm.email) {
-        inputEmail.value = savedForm.email;
+const feelInputs = (object) => {
+    if (object.email) {
+        inputEmail.value = object.email;
     };
 
-    if (savedForm.message) {
-        inputTextarea.value = savedForm.message;
+    if (object.message) {
+        inputTextarea.value = object.message;
     };
+    return
 };
 
 feelInputs(savedForm);
