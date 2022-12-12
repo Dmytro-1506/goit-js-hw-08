@@ -7,12 +7,18 @@ const dataForm = document.querySelector('form');
 
 let formData = {};
 const STORAGE_KEY = "feedback-form-state";
+const parseSTORAGE_KEY = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-if (localStorage.getItem(STORAGE_KEY)) {
-    formData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    inputEmail.value = formData.email;
-    inputTextarea.value = formData.message;
-};
+if (parseSTORAGE_KEY) {
+    if (parseSTORAGE_KEY.email) {
+        formData.email = parseSTORAGE_KEY.email;
+        inputEmail.value = formData.email;
+    };
+    if (parseSTORAGE_KEY.message) {
+        formData.message = parseSTORAGE_KEY.message;
+        inputTextarea.value = formData.message;
+    };
+}
 
 inputEmail.addEventListener('input', throttle((e) => {
     formData.email = e.target.value;
@@ -26,11 +32,16 @@ inputTextarea.addEventListener('input', throttle((e) => {
 
 submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
+    if (!formData.message || !formData.email) {
+        alert('Заповніть всі поля форми')
+        return
+    }
 
-    console.log(formData.email);
-    console.log(formData.message);
-
+    console.log(formData);
     dataForm.reset();
+
+    formData.email = '';
+    formData.message = '';
 
     localStorage.removeItem(STORAGE_KEY);
 });
